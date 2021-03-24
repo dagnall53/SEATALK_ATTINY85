@@ -25,7 +25,7 @@
 
 
 // do not call Serial, or digistump compiler will call its own version!
-SoftwareSerial Serial_Port(RX, TX,false,false);
+SoftwareSerial Serial_Port(RX, TX);
 SoftwareSerial Seatalk(ST_in, TX,false,true); // modify  software serial to add 9 bit mode
 
 // ***

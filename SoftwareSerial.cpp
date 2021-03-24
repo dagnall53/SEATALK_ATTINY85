@@ -246,26 +246,17 @@ ISR(PCINT3_vect, ISR_ALIASOF(PCINT0_vect));
 //
 // Constructor
 //
-SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic /* = false */) : 
+
+
+SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic, bool nine   ) : 
   _rx_delay_centering(0),
   _rx_delay_intrabit(0),
   _rx_delay_stopbit(0),
   _tx_delay(0),
   _buffer_overflow(false),
-  _inverse_logic(inverse_logic)
-{
-  setTX(transmitPin);
-  setRX(receivePin);
-}
+  _inverse_logic(inverse_logic),
+  _nine(nine)
 
-
-SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic /* = false */,bool _9bit /* = false */) : 
-  _rx_delay_centering(0),
-  _rx_delay_intrabit(0),
-  _rx_delay_stopbit(0),
-  _tx_delay(0),
-  _buffer_overflow(false),
-  _inverse_logic(inverse_logic)
 {
   setTX(transmitPin);
   setRX(receivePin);
@@ -441,6 +432,7 @@ size_t SoftwareSerial::write(uint8_t b)
   uint8_t inv_mask = ~_transmitBitMask;
   uint8_t oldSREG = SREG;
   bool inv = _inverse_logic;
+  bool nine = _nine;
   uint16_t delay = _tx_delay;
 
   if (inv)

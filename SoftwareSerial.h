@@ -67,7 +67,7 @@ private:
 
   uint16_t _buffer_overflow:1;
   uint16_t _inverse_logic:1;
-  uint16_t _9bit:1;  //dag
+  bool _nine:1;  //dag
 
   // static data
   static uint8_t _receive_buffer[_SS_MAX_RX_BUFF]; 
@@ -90,9 +90,10 @@ private:
 
 public:
   // public methods
-  SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic = false);
-  SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic = false, bool _9bit = false); //dag
-  ~SoftwareSerial();
+
+  
+  SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic =false , bool nine = false); //dag
+ ~SoftwareSerial();
   void begin(long speed);
   bool listen();
   void end();
